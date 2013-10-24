@@ -303,7 +303,8 @@ jQuery(function($) {
                 tr.appendChild(tdStatus);
                 tr.appendChild(tdSize);
                 tr.appendChild(tdDelete);
-                $("#rtMedia-queue-list").append(tr);
+		modify_tr = rtMediaHook.call('rtmedia_modify_tr_after_file_added', [file,tdStatus,tdDelete,tr]);//
+		$("#rtMedia-queue-list").append(tr);
                 //Delete Function
                 $("#" + file.id + " td.plupload_delete").click(function(e) {
                     e.preventDefault();
@@ -324,8 +325,10 @@ jQuery(function($) {
         });
 
         uploaderObj.uploader.bind('QueueChanged', function(up) {
-            uploaderObj.uploadFiles()
-
+	    auto_upload = rtMediaHook.call('rtmedia_auto_upload');//
+	    if(auto_upload !== false) {
+		uploaderObj.uploadFiles();
+	    }
         });
 
         uploaderObj.uploader.bind('UploadProgress', function(up, file) {
@@ -394,7 +397,7 @@ jQuery(function($) {
             uploaderObj.uploadFiles(e);
         });
         $("#rtMedia-start-upload").hide();
-        
+
         jQuery(document).on('click', '#rtm_show_upload_ui', function(){
             jQuery('#rtm-media-gallery-uploader').slideToggle();
             uploaderObj.uploader.refresh();//refresh the uploader for opera/IE fix on media page

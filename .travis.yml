@@ -11,11 +11,13 @@ env:
     - WP_VERSION=3.5.1 WP_MULTISITE=0
     - WP_VERSION=3.5.1 WP_MULTISITE=1
 
+install:
+    - composer selfupdate
+
 before_install:
     - git submodule update --init --recursive
 
 before_script:
-    - sudo php composer.phar update
     # set up WP install
     - WP_CORE_DIR=/tmp/wordpress/
     - mkdir -p $WP_CORE_DIR

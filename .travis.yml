@@ -15,8 +15,7 @@ before_install:
     - git submodule update --init --recursive
 
 before_script:
-    - composer selfupdate
-    - composer install
+    - composer install --dev --no-interaction --prefer-source
     # set up WP install
     - WP_CORE_DIR=/tmp/wordpress/
     - mkdir -p $WP_CORE_DIR

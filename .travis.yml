@@ -15,6 +15,7 @@ before_install:
     - git submodule update --init --recursive
 
 before_script:
+    - sudo pear install --force phpunit/PHPUnit_MockObject
     # set up WP install
     - WP_CORE_DIR=/tmp/wordpress/
     - mkdir -p $WP_CORE_DIR
